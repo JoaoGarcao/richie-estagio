@@ -16,25 +16,15 @@ const messages = defineMessages({
     description: 'Title of the enrollment dates section of an opened course run block',
     defaultMessage: 'Enrollment',
   },
-  course: {
-    id: 'components.SyllabusCourseRun.course',
-    description: 'Title of the course dates section of an opened course run block',
-    defaultMessage: 'Course',
-  },
   languages: {
     id: 'components.SyllabusCourseRun.languages',
     description: 'Title of the languages section of an opened course run block',
     defaultMessage: 'Languages',
   },
-  runPeriod: {
-    id: 'components.SyllabusCourseRun.enrollmentPeriod',
-    description: 'Enrollment date of an opened course run block',
-    defaultMessage: 'From {startDate} to {endDate}',
-  },
-  coursePeriod: {
-    id: 'components.SyllabusCourseRun.coursePeriod',
-    description: 'Course date of an opened course run block',
-    defaultMessage: 'From {startDate} to {endDate}',
+  selfPaceRunPeriod: {
+    id: 'components.SyllabusCourseRun.selfPaceEnrollmentPeriod',
+    description: 'Enrollment date of an opened and self paced course run block',
+    defaultMessage: 'Available until {endDate}',
   },
 });
 
@@ -42,15 +32,10 @@ const messages = defineMessages({
 //   return (courseRun.languages.length == 1);
 // }
 
-const OpenedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
+const OpenedSelfPacedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
   const formatDate = useDateFormat();
   const intl = useIntl();
-  const enrollmentStart = courseRun.enrollment_start
-    ? formatDate(courseRun.enrollment_start)
-    : '...';
   const enrollmentEnd = courseRun.enrollment_end ? formatDate(courseRun.enrollment_end) : '...';
-  const start = courseRun.start ? formatDate(courseRun.start) : '...';
-  const end = courseRun.end ? formatDate(courseRun.end) : '...';
   return (
     <>
       {courseRun.title && <h3>{StringHelper.capitalizeFirst(courseRun.title)}</h3>}
@@ -60,22 +45,9 @@ const OpenedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
         </dt>
         <dd>
           <FormattedMessage
-            {...messages.runPeriod}
+            {...messages.selfPaceRunPeriod}
             values={{
-              startDate: enrollmentStart,
               endDate: enrollmentEnd,
-            }}
-          />
-        </dd>
-        <dt>
-          <FormattedMessage {...messages.course} />
-        </dt>
-        <dd>
-          <FormattedMessage
-            {...messages.runPeriod}
-            values={{
-              startDate: start,
-              endDate: end,
             }}
           />
         </dd>
@@ -93,7 +65,7 @@ const OpenedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
   );
 };
 
-export const SyllabusCourseRun = ({
+export const SyllabusCourseRunSelfPaced = ({
   courseRun,
   course,
 }: {
@@ -110,7 +82,7 @@ export const SyllabusCourseRun = ({
             compact={courseRun.display_mode === CourseRunDisplayMode.COMPACT}
           />
         ) : (
-          <OpenedCourseRun courseRun={courseRun} />
+          <OpenedSelfPacedCourseRun courseRun={courseRun} />
         )}
       </div>
     </DjangoCMSTemplate>

@@ -52,6 +52,7 @@ class CourseEnrollmentWidgetPropsTagTestCase(CMSTestCase):
                     "course": {
                         "id": course.id,
                         "code": course.code,
+                        "pace": course.pace,
                     },
                     "courseRuns": [
                         {
@@ -115,6 +116,7 @@ class CourseEnrollmentWidgetPropsTagTestCase(CMSTestCase):
                     "course": {
                         "id": course.id,
                         "code": course.code,
+                        "pace": course.pace,
                     },
                     "courseRuns": [
                         {
@@ -195,6 +197,7 @@ class CourseEnrollmentWidgetPropsTagTestCase(CMSTestCase):
                     "course": {
                         "id": course.id,
                         "code": course.code,
+                        "pace": course.pace,
                     },
                     "courseRuns": [
                         {

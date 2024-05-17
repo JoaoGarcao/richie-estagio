@@ -5,6 +5,7 @@ import { Button } from '@openfun/cunningham-react';
 import { CourseRun, Priority } from 'types';
 import { computeStates } from 'utils/CourseRuns';
 import { SyllabusAsideList } from 'widgets/SyllabusCourseRunsList/components/SyllabusAsideList';
+import { SyllabusCourseRunSelfPaced } from 'widgets/SyllabusCourseRunsList/components/SyllabusCourseRunSelfPaced';
 import { SyllabusCourseRun } from 'widgets/SyllabusCourseRunsList/components/SyllabusCourseRun';
 import { DjangoCMSPluginsInit } from 'components/DjangoCMSTemplate';
 import { isJoanieEnabled } from 'api/joanie';
@@ -82,9 +83,15 @@ const SyllabusCourseRunsList = ({
         </div>
       )}
       {openedRuns.length === 1 && (
-        <div className="course-detail__row course-detail__runs course-detail__runs--open">
-          <SyllabusCourseRun courseRun={openedRuns[0]} course={course} />
-        </div>
+        (course.is_self_paced) ? (
+          <div className="course-detail__row course-detail__runs course-detail__runs--open">
+            <SyllabusCourseRunSelfPaced courseRun={openedRuns[0]} course={course} /> {/*Alterar o nome da class*/}
+          </div>
+        ) : (
+          <div className="course-detail__row course-detail__runs course-detail__runs--open">
+            <SyllabusCourseRun courseRun={openedRuns[0]} course={course} />
+          </div>
+        )
       )}
       {openedRuns.length > 1 && (
         <div className="course-detail__row course-detail__runs course-detail__go-to-open-runs">

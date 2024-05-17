@@ -119,6 +119,7 @@ export const TargetCourseFactory = factory((): TargetCourse => {
     course_runs: courseRuns,
     is_graded: true,
     position: 1,
+    is_self_paced: false,
   };
 });
 
@@ -275,6 +276,7 @@ export const CourseFactory = factory((): CourseListItem => {
     course_run_ids: [faker.string.uuid()],
     state: CourseStateFactory().one(),
     cover: JoanieFileFactory().one(),
+    is_self_paced: false,
   };
 });
 
@@ -284,6 +286,7 @@ export const CourseLightFactory = factory((): CourseLight => {
     code: faker.string.alphanumeric(5),
     title: FactoryHelper.sequence((counter) => `Course ${counter}`),
     cover: JoanieFileFactory().one(),
+    is_self_paced: false,
   };
 });
 
@@ -345,6 +348,7 @@ export const CourseListItemFactory = factory((): CourseListItem => {
     course_run_ids: [],
     state: CourseStateFactory().one(),
     cover: JoanieFileFactory().one(),
+    is_self_paced: false,
   };
 });
 

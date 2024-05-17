@@ -75,6 +75,7 @@ export interface CourseListItem extends Resource {
   product_ids: string[];
   state: CourseState;
   created_on: string;
+  is_self_paced: boolean;
 }
 
 // - Course Run
@@ -195,9 +196,10 @@ export interface AbstractCourse {
   organizations: OrganizationLight[];
   title: string;
   course_runs: CourseRun[];
+  is_self_paced: boolean;
 }
 
-export type CourseLight = Pick<AbstractCourse, 'id' | 'code' | 'title'> & {
+export type CourseLight = Pick<AbstractCourse, 'id' | 'code' | 'title' | 'is_self_paced'> & {
   cover: Nullable<JoanieFile>;
 };
 

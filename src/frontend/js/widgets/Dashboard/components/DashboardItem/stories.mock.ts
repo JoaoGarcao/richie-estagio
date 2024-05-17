@@ -22,6 +22,7 @@ export const enrollment: Enrollment = {
       code: '09391',
       title: 'Learn disruptive technologies',
       cover: null,
+      is_self_paced: false,
     },
     languages: ['en'],
   },
