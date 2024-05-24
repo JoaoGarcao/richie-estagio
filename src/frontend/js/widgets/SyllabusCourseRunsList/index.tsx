@@ -4,14 +4,16 @@ import { createPortal } from 'react-dom';
 import { Button } from '@openfun/cunningham-react';
 import { CourseRun, Priority } from 'types';
 import { computeStates } from 'utils/CourseRuns';
+import { IsAllCorseRunsWithSameLanguages } from 'utils/CourseRunLanguages';
 import { SyllabusAsideList } from 'widgets/SyllabusCourseRunsList/components/SyllabusAsideList';
-import { SyllabusCourseRunSelfPaced } from 'widgets/SyllabusCourseRunsList/components/SyllabusCourseRunSelfPaced';
+import { SyllabusCourseRunCompacted } from 'widgets/SyllabusCourseRunsList/components/SyllabusCourseRunCompacted';
 import { SyllabusCourseRun } from 'widgets/SyllabusCourseRunsList/components/SyllabusCourseRun';
 import { DjangoCMSPluginsInit } from 'components/DjangoCMSTemplate';
 import { isJoanieEnabled } from 'api/joanie';
 import context from 'utils/context';
 import { CourseLight } from 'types/Joanie';
 import CourseWishButton from './components/CourseWishButton';
+import { isEqual } from 'lodash-es';
 
 const OPENED_COURSES_ELEMENT_ID = 'courseDetailsRunsOpen';
 
@@ -61,6 +63,8 @@ const SyllabusCourseRunsList = ({
     );
   }, [courseRunsComputed]);
 
+  const runsWithSameLanguages = IsAllCorseRunsWithSameLanguages(courseRuns);
+
   const choose = (e: React.MouseEvent) => {
     e.preventDefault();
     document
@@ -85,11 +89,11 @@ const SyllabusCourseRunsList = ({
       {openedRuns.length === 1 && (
         (course.is_self_paced) ? (
           <div className="course-detail__row course-detail__runs course-detail__runs--open">
-            <SyllabusCourseRunSelfPaced courseRun={openedRuns[0]} course={course} /> {/*Alterar o nome da class*/}
+            <SyllabusCourseRunCompacted courseRun={openedRuns[0]} course={course} allEqual={runsWithSameLanguages} />
           </div>
         ) : (
           <div className="course-detail__row course-detail__runs course-detail__runs--open">
-            <SyllabusCourseRun courseRun={openedRuns[0]} course={course} />
+            <SyllabusCourseRun courseRun={openedRuns[0]} course={course} allEqual={runsWithSameLanguages}/>
           </div>
         )
       )}

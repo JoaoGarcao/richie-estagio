@@ -38,11 +38,7 @@ const messages = defineMessages({
   },
 });
 
-// const OnlyOneLanguage = ({ courseRun }: { courseRun: CourseRun }) => { // Alterar, verificar se todas as versões do curso têm as mesmas línguas disponíveis, caso negativo: aparece languages, caso afirmativo: não aparece nada.
-//   return (courseRun.languages.length == 1);
-// }
-
-const OpenedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
+const OpenedCourseRun = ({ courseRun, allEqual }: { courseRun: CourseRun, allEqual: boolean }) => {
   const formatDate = useDateFormat();
   const intl = useIntl();
   const enrollmentStart = courseRun.enrollment_start
@@ -79,8 +75,12 @@ const OpenedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
             }}
           />
         </dd>
-        <dt><FormattedMessage {...messages.languages} /></dt>
-        <dd>{IntlHelper.getLocalizedLanguages(courseRun.languages, intl)}</dd>
+        {!allEqual && (
+          <>
+          <dt><FormattedMessage {...messages.languages} /></dt>
+          <dd>{IntlHelper.getLocalizedLanguages(courseRun.languages, intl)}</dd>
+          </>
+        )}
       </dl>
       {findLmsBackend(courseRun.resource_link) ? (
         <CourseRunEnrollment courseRun={courseRun} />
@@ -96,9 +96,11 @@ const OpenedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
 export const SyllabusCourseRun = ({
   courseRun,
   course,
+  allEqual,
 }: {
   courseRun: CourseRun;
   course: CourseLight;
+  allEqual: boolean;
 }) => {
   return (
     <DjangoCMSTemplate plugin={DjangoCMSPluginCourseRun(courseRun)}>
@@ -110,7 +112,7 @@ export const SyllabusCourseRun = ({
             compact={courseRun.display_mode === CourseRunDisplayMode.COMPACT}
           />
         ) : (
-          <OpenedCourseRun courseRun={courseRun} />
+          <OpenedCourseRun courseRun={courseRun} allEqual={allEqual} />
         )}
       </div>
     </DjangoCMSTemplate>

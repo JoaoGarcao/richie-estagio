@@ -28,11 +28,7 @@ const messages = defineMessages({
   },
 });
 
-// const OnlyOneLanguage = ({ courseRun }: { courseRun: CourseRun }) => { // Alterar, verificar se todas as versões do curso têm as mesmas línguas disponíveis, caso negativo: aparece languages, caso afirmativo: não aparece nada.
-//   return (courseRun.languages.length == 1);
-// }
-
-const OpenedSelfPacedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
+const OpenedSelfPacedCourseRun = ({ courseRun, allEqual }: { courseRun: CourseRun, allEqual: boolean }) => {
   const formatDate = useDateFormat();
   const intl = useIntl();
   const enrollmentEnd = courseRun.enrollment_end ? formatDate(courseRun.enrollment_end) : '...';
@@ -51,8 +47,12 @@ const OpenedSelfPacedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
             }}
           />
         </dd>
-        <dt><FormattedMessage {...messages.languages} /></dt>
-        <dd>{IntlHelper.getLocalizedLanguages(courseRun.languages, intl)}</dd>
+        {!allEqual && (
+          <>
+            <dt><FormattedMessage {...messages.languages} /></dt>
+            <dd>{IntlHelper.getLocalizedLanguages(courseRun.languages, intl)}</dd>
+          </>
+        )}
       </dl>
       {findLmsBackend(courseRun.resource_link) ? (
         <CourseRunEnrollment courseRun={courseRun} />
@@ -65,12 +65,14 @@ const OpenedSelfPacedCourseRun = ({ courseRun }: { courseRun: CourseRun }) => {
   );
 };
 
-export const SyllabusCourseRunSelfPaced = ({
+export const SyllabusCourseRunCompacted = ({
   courseRun,
   course,
+  allEqual,
 }: {
   courseRun: CourseRun;
   course: CourseLight;
+  allEqual: boolean;
 }) => {
   return (
     <DjangoCMSTemplate plugin={DjangoCMSPluginCourseRun(courseRun)}>
@@ -82,7 +84,7 @@ export const SyllabusCourseRunSelfPaced = ({
             compact={courseRun.display_mode === CourseRunDisplayMode.COMPACT}
           />
         ) : (
-          <OpenedSelfPacedCourseRun courseRun={courseRun} />
+          <OpenedSelfPacedCourseRun courseRun={courseRun} allEqual={allEqual} />
         )}
       </div>
     </DjangoCMSTemplate>
