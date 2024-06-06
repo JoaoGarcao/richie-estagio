@@ -52,7 +52,7 @@ class CourseEnrollmentWidgetPropsTagTestCase(CMSTestCase):
                     "course": {
                         "id": course.id,
                         "code": course.code,
-                        "pace": course.pace,
+                        "is_self_paced": course.is_self_paced,
                     },
                     "courseRuns": [
                         {
@@ -116,7 +116,7 @@ class CourseEnrollmentWidgetPropsTagTestCase(CMSTestCase):
                     "course": {
                         "id": course.id,
                         "code": course.code,
-                        "pace": course.pace,
+                        "is_self_paced": course.is_self_paced,
                     },
                     "courseRuns": [
                         {
@@ -197,7 +197,7 @@ class CourseEnrollmentWidgetPropsTagTestCase(CMSTestCase):
                     "course": {
                         "id": course.id,
                         "code": course.code,
-                        "pace": course.pace,
+                        "is_self_paced": course.is_self_paced,
                     },
                     "courseRuns": [
                         {
