@@ -75,6 +75,8 @@ class CourseRunSerializer(serializers.ModelSerializer):
             "state",
             "enrollment_count",
             "catalog_visibility",
+            "offer",
+            "price",
         ]
 
 
@@ -96,5 +98,7 @@ class SyncCourseRunSerializer(serializers.ModelSerializer):
             "languages",
             "enrollment_count",
             "catalog_visibility",
+            "offer",
+            "price",
         ]
         extra_kwargs = {"resource_link": {"required": True}}

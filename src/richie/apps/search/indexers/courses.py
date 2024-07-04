@@ -23,6 +23,7 @@ from ...courses.models import (
     CategoryPluginModel,
     Course,
     CourseRunCatalogVisibility,
+    CourseRunOffer,
     CourseState,
     Licence,
 )
@@ -602,6 +603,7 @@ class CoursesIndexer:
                 start__isnull=False,
                 enrollment_start__isnull=False,
                 catalog_visibility=CourseRunCatalogVisibility.COURSE_AND_SEARCH,
+                offer=CourseRunOffer.FREE,
             )
             .order_by("-end")
             .values("start", "end", "enrollment_start", "enrollment_end", "languages")

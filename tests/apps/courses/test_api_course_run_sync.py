@@ -200,6 +200,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 46782,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         self.assertEqual(
@@ -210,7 +212,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
 
         authorization = (
             "SIG-HMAC-SHA256 "
-            "5bdfb326b35fccaef9961e03cf617c359c86ffbb6c64e0f7e074aa011e8af9d6"
+            "704186df9ff0b59cb42a882c3bb3ef4711bb4b3812df16c54d268863bf5438b3"
         )
         response = self.client.post(
             "/api/v1.0/course-runs-sync",
@@ -255,6 +257,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 324,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
         self.assertEqual(
             course.extended_object.title_set.first().publisher_state,
@@ -267,7 +271,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 8e232f3a6071a10cded2740bdc71aed06aa637719d28f968c7b7d35eccd765f7"
+                "SIG-HMAC-SHA256 fc45c4aac69ae8c557def33a4d580a08f784e67c6695351ace885fe19e5b07a8"
             ),
         )
 
@@ -312,6 +316,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 47892,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
         self.assertEqual(
             course.extended_object.title_set.first().publisher_state,
@@ -324,7 +330,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 bb453816becb5df16949b915dd577a2cabf734e4429bfbd3bdb727bde39c58b7"
+                "SIG-HMAC-SHA256 8daddc3f47fb55ad52f8ca4e6eb8684ab1d6d5f869b73295fc7d3147e1fbcf27"
             ),
         )
 
@@ -392,6 +398,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 45,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         self.assertEqual(
@@ -405,7 +413,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 723d3312759b6755bc8bbe05a9c2c719d2b4a3bdf381e2036a93119bf192aeda"
+                "SIG-HMAC-SHA256 4cb424ba2a02826fa3e1d6bdf00961b87b48f9c464a49659f08cc1a9b9b72140"
             ),
         )
 
@@ -565,6 +573,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 15682,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         response = self.client.post(
@@ -572,7 +582,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 25de22f3674a207a2bd3923dcc5e302a21c9aac8eee7c835f084349da69d0472"
+                "SIG-HMAC-SHA256 3ac5e1047ff9b1168e5dd11cec7603c534b8c5f0724208906ef5c044129fe62c"
             ),
         )
 
@@ -627,6 +637,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 2042,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         response = self.client.post(
@@ -634,7 +646,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 6f85261b995a8ca78b5610cfe47fd6a0e321f26c671b606d12225bbea72fc8f0"
+                "SIG-HMAC-SHA256 16c09020a9a637a0102f0781bee0ada2d2b1d08155eb0a83b40c29023d216338"
             ),
         )
 
@@ -683,6 +695,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 103123,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         response = self.client.post(
@@ -690,7 +704,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 262963565518c85901059500b274568a4d5583d507c375604e9845083d5d7095"
+                "SIG-HMAC-SHA256 85b725c65fdbfb641b37e108f748f377f80d1d764c3aa06b35913149bd748d5a"
             ),
         )
 
@@ -747,6 +761,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 542,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         response = self.client.post(
@@ -754,7 +770,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 db30268ee706fd147c6f04567faa88ed84fd06f08dbc944fff6c0a4973b06599"
+                "SIG-HMAC-SHA256 1c7b09f4cd9dd8942c399fd00834f2af9dd2e51505a9fee5b2aa9cc2f17dac8b"
             ),
         )
 
@@ -806,6 +822,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 986,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         response = self.client.post(
@@ -813,7 +831,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 3bed4a7b1595f49957bd949ed0192d5f1416d4f6a1c409fc8b03b1a1ebad0f39"
+                "SIG-HMAC-SHA256 3c2280d0043721f52bc2c1d41d7294dc44949e367567503e85e04e35ce6ddf82"
             ),
         )
 
@@ -923,6 +941,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 12345,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         response = self.client.post(
@@ -930,7 +950,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 13433eb9159326b7d0f38ea86ab1ef8510ac4bc643d997d2ad01e349bee15570"
+                "SIG-HMAC-SHA256 c5e78465258ea8e28468736ed9401aa60a6c158e90b006360abb0e5bf873c923"
             ),
         )
         self.assertEqual(response.status_code, 200)
@@ -988,6 +1008,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 12345,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         response = self.client.post(
@@ -995,7 +1017,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             data,
             content_type="application/json",
             HTTP_AUTHORIZATION=(
-                "SIG-HMAC-SHA256 13433eb9159326b7d0f38ea86ab1ef8510ac4bc643d997d2ad01e349bee15570"
+                "SIG-HMAC-SHA256 c5e78465258ea8e28468736ed9401aa60a6c158e90b006360abb0e5bf873c923"
             ),
         )
         self.assertEqual(response.status_code, 200)
@@ -1037,6 +1059,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
                 "languages": ["en", "fr"],
                 "enrollment_count": 46782,
                 "catalog_visibility": "course_and_search",
+                "offer": "free",
+                "price": 0.0,
             },
             {
                 "resource_link": resource_link2,
@@ -1047,6 +1071,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
                 "languages": ["en"],
                 "enrollment_count": 210,
                 "catalog_visibility": "course_and_search",
+                "offer": "free",
+                "price": 0.0,
             },
         ]
 
@@ -1054,7 +1080,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
 
         authorization = (
             "SIG-HMAC-SHA256 "
-            "3f23b25632caa04b5fb9ac8b21f5143779fb61b6fa9b0422fce0f6fdad0b3de3"
+            "dbde81df2fd518281860c87f0d4387649e9cd5f29099f7ab28605c5521b8dafd"
         )
         response = self.client.post(
             "/api/v1.0/course-runs-sync",
@@ -1158,6 +1184,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
                 "languages": ["en", "fr"],
                 "enrollment_count": 46782,
                 "catalog_visibility": "course_and_search",
+                "offer": "free",
+                "price": 0.0,
             },
             {
                 "resource_link": resource_link2,
@@ -1168,6 +1196,8 @@ class SyncCourseRunApiTestCase(CMSTestCase):
                 "languages": ["en"],
                 "enrollment_count": 210,
                 "catalog_visibility": "course_and_search",
+                "offer": "free",
+                "price": 0.0,
             },
         ]
 
@@ -1175,7 +1205,7 @@ class SyncCourseRunApiTestCase(CMSTestCase):
 
         authorization = (
             "SIG-HMAC-SHA256 "
-            "26339b1ef2d8203b097345e3176ebe857645768c1a65877805c4c30d70ae4495"
+            "76100454e90e5512fee23348f4859987040e9a7f3042be75e1d7db3ac1f5c627"
         )
         response = self.client.post(
             "/api/v1.0/course-runs-sync",
@@ -1242,13 +1272,15 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 46782,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         mock_signal.reset_mock()
 
         authorization = (
             "SIG-HMAC-SHA256 "
-            "5bdfb326b35fccaef9961e03cf617c359c86ffbb6c64e0f7e074aa011e8af9d6"
+            "704186df9ff0b59cb42a882c3bb3ef4711bb4b3812df16c54d268863bf5438b3"
         )
         response = self.client.post(
             "/api/v1.0/course-runs-sync",
@@ -1284,13 +1316,15 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 46782,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         mock_signal.reset_mock()
 
         authorization = (
             "SIG-HMAC-SHA256 "
-            "5bdfb326b35fccaef9961e03cf617c359c86ffbb6c64e0f7e074aa011e8af9d6"
+            "704186df9ff0b59cb42a882c3bb3ef4711bb4b3812df16c54d268863bf5438b3"
         )
         response = self.client.post(
             "/api/v1.0/course-runs-sync",
@@ -1324,11 +1358,13 @@ class SyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 46782,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
         authorization = (
             "SIG-HMAC-SHA256 "
-            "5bdfb326b35fccaef9961e03cf617c359c86ffbb6c64e0f7e074aa011e8af9d6"
+            "704186df9ff0b59cb42a882c3bb3ef4711bb4b3812df16c54d268863bf5438b3"
         )
         response = self.client.post(
             "/api/v1.0/course-runs-sync",

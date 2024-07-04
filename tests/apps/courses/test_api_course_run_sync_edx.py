@@ -13,7 +13,11 @@ from cms.signals import post_publish
 from cms.test_utils.testcases import CMSTestCase
 
 from richie.apps.courses.factories import CourseFactory, CourseRunFactory
-from richie.apps.courses.models import CourseRun, CourseRunCatalogVisibility
+from richie.apps.courses.models import (
+    CourseRun,
+    CourseRunCatalogVisibility,
+    CourseRunOffer,
+)
 
 
 # pylint: disable=too-many-public-methods
@@ -53,6 +57,8 @@ class EdxSyncCourseRunApiTestCase(CMSTestCase):
             "languages": ["en", "fr"],
             "enrollment_count": 46782,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
         mock_signal.reset_mock()
 
@@ -63,7 +69,7 @@ class EdxSyncCourseRunApiTestCase(CMSTestCase):
 
         authorization = (
             "SIG-HMAC-SHA256 "
-            "5bdfb326b35fccaef9961e03cf617c359c86ffbb6c64e0f7e074aa011e8af9d6"
+            "704186df9ff0b59cb42a882c3bb3ef4711bb4b3812df16c54d268863bf5438b3"
         )
         response = self.client.post(
             "/api/v1.0/course-runs-sync",
@@ -102,6 +108,34 @@ class EdxSyncCourseRunApiTestCase(CMSTestCase):
         self.assertEqual(response.json(), {"success": True})
         course_run.refresh_from_db()
         self.assertEqual(course_run.enrollment_count, 865)
+        self.assertFalse(mock_signal.called)
+
+    def test_api_course_run_sync_edx_price(self, mock_signal):
+        """
+        Check if the price of a course is updated
+        """
+        link = "http://example.edx:8073/courses/course-v1:edX+DemoX+01/course/"
+        course = CourseFactory(code="DemoX")
+        course_run = CourseRunFactory(direct_course=course, resource_link=link)
+        mock_signal.reset_mock()
+
+        data = {
+            "resource_link": link,
+            "price": 13.0,
+        }
+
+        response = self.client.post(
+            "/api/v1.0/course-runs-sync",
+            data,
+            content_type="application/json",
+            HTTP_AUTHORIZATION=(
+                "SIG-HMAC-SHA256 0bcff60a1432cc575cd06b71d266e2591dfcc09910583ab50ee41cf96db11cac"
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"success": True})
+        course_run.refresh_from_db()
+        self.assertEqual(course_run.price, 13.0)
         self.assertFalse(mock_signal.called)
 
     def test_api_course_run_sync_edx_catalog_visibility_course_only(self, mock_signal):
@@ -287,4 +321,116 @@ class EdxSyncCourseRunApiTestCase(CMSTestCase):
         self.assertEqual(
             course_run.catalog_visibility, CourseRunCatalogVisibility.COURSE_ONLY
         )
+        self.assertFalse(mock_signal.called)
+
+    def test_api_course_run_sync_edx_offer_course_free(self, mock_signal):
+        """
+        Verify that the offer is updated with `free`
+        """
+        link = "http://example.edx:8073/courses/course-v1:edX+DemoX+01/course/"
+        course = CourseFactory(code="DemoX")
+        course_run = CourseRunFactory(direct_course=course, resource_link=link)
+        mock_signal.reset_mock()
+
+        data = {
+            "resource_link": link,
+            "offer": "free",
+        }
+
+        response = self.client.post(
+            "/api/v1.0/course-runs-sync",
+            data,
+            content_type="application/json",
+            HTTP_AUTHORIZATION=(
+                "SIG-HMAC-SHA256 42ed7778a879766c5515c0968c1e04498d7e7db107da95fd0d2ccbdc957c981f"
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"success": True})
+        course_run.refresh_from_db()
+        self.assertEqual(course_run.offer, CourseRunOffer.FREE)
+        self.assertFalse(mock_signal.called)
+
+    def test_api_course_run_sync_edx_offer_partially_free(self, mock_signal):
+        """
+        Verify that the offer is updated with `partially_free`
+        """
+        link = "http://example.edx:8073/courses/course-v1:edX+DemoX+01/course/"
+        course = CourseFactory(code="DemoX")
+        course_run = CourseRunFactory(direct_course=course, resource_link=link)
+        mock_signal.reset_mock()
+
+        data = {
+            "resource_link": link,
+            "offer": "partially_free",
+        }
+
+        response = self.client.post(
+            "/api/v1.0/course-runs-sync",
+            data,
+            content_type="application/json",
+            HTTP_AUTHORIZATION=(
+                "SIG-HMAC-SHA256 be7dc3708f708bc0530c6bb1efdfe11a07cfb8d3d461b0ab943f092460a52c21"
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"success": True})
+        course_run.refresh_from_db()
+        self.assertEqual(course_run.offer, CourseRunOffer.PARTIALLY_FREE)
+        self.assertFalse(mock_signal.called)
+
+    def test_api_course_run_sync_edx_offer_subscription(self, mock_signal):
+        """
+        Verify that the offer is updated with `subscription`
+        """
+        link = "http://example.edx:8073/courses/course-v1:edX+DemoX+01/course/"
+        course = CourseFactory(code="DemoX")
+        course_run = CourseRunFactory(direct_course=course, resource_link=link)
+        mock_signal.reset_mock()
+
+        data = {
+            "resource_link": link,
+            "offer": "subscription",
+        }
+
+        response = self.client.post(
+            "/api/v1.0/course-runs-sync",
+            data,
+            content_type="application/json",
+            HTTP_AUTHORIZATION=(
+                "SIG-HMAC-SHA256 90ba027ce5deb70d50a0c128820eeb133f0209c55c172feb383b267b04480069"
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"success": True})
+        course_run.refresh_from_db()
+        self.assertEqual(course_run.offer, CourseRunOffer.SUBSCRIPTION)
+        self.assertFalse(mock_signal.called)
+
+    def test_api_course_run_sync_edx_offer_paid(self, mock_signal):
+        """
+        Verify that the offer is updated with `paid`
+        """
+        link = "http://example.edx:8073/courses/course-v1:edX+DemoX+01/course/"
+        course = CourseFactory(code="DemoX")
+        course_run = CourseRunFactory(direct_course=course, resource_link=link)
+        mock_signal.reset_mock()
+
+        data = {
+            "resource_link": link,
+            "offer": "paid",
+        }
+
+        response = self.client.post(
+            "/api/v1.0/course-runs-sync",
+            data,
+            content_type="application/json",
+            HTTP_AUTHORIZATION=(
+                "SIG-HMAC-SHA256 161279d4d833aa5b21f6949d6275edbf4f7ad2752e5eee130483d35de08da764"
+            ),
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"success": True})
+        course_run.refresh_from_db()
+        self.assertEqual(course_run.offer, CourseRunOffer.PAID)
         self.assertFalse(mock_signal.called)
