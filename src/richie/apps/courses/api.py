@@ -78,6 +78,8 @@ def sync_course_run(data):
             "languages": ["en", "fr"],
             "enrollment_count": 42,
             "catalog_visibility": "course_and_search",
+            "offer": "free",
+            "price": 0.0,
         }
 
     Returns
