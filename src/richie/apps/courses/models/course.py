@@ -791,7 +791,7 @@ class CourseRun(TranslatableModel):
     offer = models.CharField(
         _("offer"),
         choices=lazy(lambda: CourseRunOffer.choices, tuple)(),
-        default=CourseRunOffer.FREE,
+        default=getattr(settings, "RICHIE_DEFAULT_COURSE_RUN_OFFER", CourseRunOffer.FREE),
         blank=False,
         max_length=20,
     )
